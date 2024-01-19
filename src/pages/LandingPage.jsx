@@ -4,7 +4,7 @@ import { AccountContext } from '../components/AccountProvider';
 
 import NavBar from '../components/NavBar';
 
-function Landing() {
+function LandingPage() {
 	// const { Google } = useContext(AccountContext);
 
 	return (
@@ -43,4 +43,4 @@ function Landing() {
 	);
 }
 
-export default Landing;
+export default LandingPage;

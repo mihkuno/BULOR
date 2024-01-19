@@ -4,16 +4,14 @@ import ReactDOM from 'react-dom/client';
 import { ChakraProvider } from '@chakra-ui/react';
 // import { AccountProvider } from './components/AccountProvider';
 
-// Application Entry Point
 import './styles/global.css';
-import App from './pages/ProductPage';
+import Router from './Router';
 
-// Render the application
 function Root() {
 	return (
 		<ChakraProvider>
 			{/* <AccountProvider> */}
-			<App />
+			<Router />
 			{/* </AccountProvider> */}
 		</ChakraProvider>
 	);
