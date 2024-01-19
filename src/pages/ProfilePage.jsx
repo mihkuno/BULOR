@@ -6,7 +6,7 @@ import ProfileBillingInfo from '../components/ProfileBillingInfo';
 
 function ProfilePage() {
 	return (
-		<AppBody colorScheme={'light'}>
+		<AppBody active={'Profile'} colorScheme={'light'}>
 			<ProfileHeader />
 			<HStack spacing={6} alignItems={'flex-start'}>
 				<ProfileUserInfo />

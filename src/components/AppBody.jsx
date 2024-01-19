@@ -7,7 +7,7 @@ function AppBody({ children, colorScheme, active }) {
 		<Flex background="#F8F9FA">
 			<Sidebar active={active} />
 			<Flex w="100%" direction="column" px={20}>
-				<NavBread colorScheme={colorScheme} />
+				<NavBread active={active} colorScheme={colorScheme} />
 				{Array.isArray(children) ? (
 					children.map((child, index) => <div key={child.key || index}>{child}</div>)
 				) : (

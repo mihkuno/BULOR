@@ -29,15 +29,15 @@ function Sidebar({ active }) {
 					onClick={handleClick}
 				/>
 				<SidebarButton
-					title={'Product'}
+					title={'Products'}
 					Icon={StatsChart}
-					active={active == 'Product'}
+					active={active == 'Products'}
 					onClick={handleClick}
 				/>
 				<SidebarButton
-					title={'Billing'}
+					title={'Billings'}
 					Icon={Card}
-					active={active == 'Billing'}
+					active={active == 'Billings'}
 					onClick={handleClick}
 				/>
 				<Text mt={2} mb={1} ml={5} fontSize={12} fontWeight={700}>

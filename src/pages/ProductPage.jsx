@@ -6,7 +6,7 @@ import ProductAddCard from '../components/ProductAddCard';
 
 function ProductPage() {
 	return (
-		<AppBody active={'Product'}>
+		<AppBody active={'Products'}>
 			<Flex
 				mt={12}
 				p={1}
