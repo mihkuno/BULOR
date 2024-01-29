@@ -1,4 +1,4 @@
-import { Image, Text, Flex, VStack, HStack } from '@chakra-ui/react';
+import { Input, Textarea, Image, Text, VStack, HStack } from '@chakra-ui/react';
 import { Check, X, Edit2 } from 'react-feather';
 import ButtonIcon from './ButtonIcon';
 
@@ -21,10 +21,12 @@ function ProfileUserInfo() {
 				<ButtonIcon Icon={X} color={'red'} />
 			</HStack>
 
-			<Text fontSize={13} color={'#A0AEC0'}>
+			{/* <Text fontSize={13} color={'#A0AEC0'}>
 				Hi, I’m Joeniño D. Cainday, this is a chakra preset components and its pretty neat on my
 				family’s inventoring system.
-			</Text>
+			</Text> */}
+
+			<Textarea fontSize={13} />
 
 			<Image src="src/assets/profile_divider.svg" my={2} />
 
@@ -45,7 +47,7 @@ function ProfileUserInfo() {
 				</VStack>
 
 				<VStack alignItems={'flex-start'} spacing={5}>
-					<Text color={'gray.500'} fontSize={13}>
+					{/* <Text color={'gray.500'} fontSize={13}>
 						Joeninyo Cainday
 					</Text>
 					<Text color={'gray.500'} fontSize={13}>
@@ -56,7 +58,12 @@ function ProfileUserInfo() {
 					</Text>
 					<Text color={'gray.500'} fontSize={13}>
 						Philippines
-					</Text>
+					</Text> */}
+
+					<Input size={'xs'} placeholder="Joeninyo Cainday" />
+					<Input size={'xs'} placeholder="Developer" />
+					<Input size={'xs'} placeholder="0998 450 6322" />
+					<Input size={'xs'} placeholder="Philippines" />
 				</VStack>
 			</HStack>
 		</VStack>

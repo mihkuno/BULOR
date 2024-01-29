@@ -1,4 +1,4 @@
-import { Image, Text, Flex, VStack, HStack } from '@chakra-ui/react';
+import { Input, Text, VStack, HStack } from '@chakra-ui/react';
 import { Check, X, Edit2 } from 'react-feather';
 import ButtonIcon from './ButtonIcon';
 
@@ -32,12 +32,14 @@ function ProfileBillingInfo() {
 				</VStack>
 
 				<VStack alignItems={'flex-start'} spacing={5}>
-					<Text color={'gray.500'} fontSize={13}>
+					{/* <Text color={'gray.500'} fontSize={13}>
 						Metrobank
 					</Text>
 					<Text color={'gray.500'} fontSize={13}>
 						7812 2139 0823 XXXX
-					</Text>
+					</Text> */}
+					<Input size={'xs'} placeholder="Metrobank" />
+					<Input size={'xs'} placeholder="7812 2139 0823 XXXX" />
 				</VStack>
 			</HStack>
 		</VStack>
