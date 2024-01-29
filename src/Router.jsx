@@ -5,6 +5,7 @@ import ProductPage from './pages/ProductPage';
 import ProfilePage from './pages/ProfilePage';
 import BillingPage from './pages/BillingPage';
 import SettingPage from './pages/SettingPage';
+import DashboardPage from './pages/DashboardPage';
 
 function Router() {
 	return (
@@ -15,6 +16,7 @@ function Router() {
 				<Route path="/products" element={<ProductPage />} />
 				<Route path="/billings" element={<BillingPage />} />
 				<Route path="/settings" element={<SettingPage />} />
+				<Route path="/dashboard" element={<DashboardPage />} />
 			</Routes>
 		</BrowserRouter>
 	);
