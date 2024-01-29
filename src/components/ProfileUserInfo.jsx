@@ -1,4 +1,6 @@
 import { Image, Text, Flex, VStack, HStack } from '@chakra-ui/react';
+import { Check, X, Edit2 } from 'react-feather';
+import ButtonIcon from './ButtonIcon';
 
 function ProfileUserInfo() {
 	return (
@@ -10,9 +12,14 @@ function ProfileUserInfo() {
 			backgroundColor={'#FFF'}
 			borderRadius={15}
 			boxShadow="0px 2px 5.5px rgba(0, 0, 0, 0.02)">
-			<Text fontSize={18} fontWeight={700} mb={2}>
-				Profile Information
-			</Text>
+			<HStack alignItems={'flex-start'} spacing={3}>
+				<Text fontSize={18} fontWeight={700} mb={2}>
+					Profile Information
+				</Text>
+				{/* <ButtonIcon Icon={Edit2} color={'#D2BA82'} /> */}
+				<ButtonIcon Icon={Check} color={'green'} />
+				<ButtonIcon Icon={X} color={'red'} />
+			</HStack>
 
 			<Text fontSize={13} color={'#A0AEC0'}>
 				Hi, I’m Joeniño D. Cainday, this is a chakra preset components and its pretty neat on my
