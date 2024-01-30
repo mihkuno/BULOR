@@ -34,10 +34,13 @@ function BillingPage() {
 									QUANTITY
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									ARRIVAL DATE
+									ORDERED
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									DUE DATE
+									SHIPPED
+								</Th>
+								<Th color={'#A0AEC0'} fontSize={10}>
+									DEADLINE
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
 									AMOUNT DUE
@@ -60,6 +63,9 @@ function BillingPage() {
 								</Td>
 								<Td fontSize={12} fontWeight={500}>
 									5 KG
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									14-06-21
 								</Td>
 								<Td fontSize={12} fontWeight={500}>
 									14-06-21
@@ -104,20 +110,56 @@ function BillingPage() {
 									QUANTITY
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									ARRIVAL DATE
+									ORDERED
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									DUE DATE
+									SHIPPED
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									PAID ON
+									DEADLINE
+								</Th>
+								<Th color={'#A0AEC0'} fontSize={10}>
+									COMPLETED
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
 									AMOUNT DUE
 								</Th>
 							</Tr>
 						</Thead>
-						<Tbody></Tbody>
+						<Tbody>
+							<Tr>
+								<Td fontSize={12} fontWeight={500} color={'#A0AEC0'}>
+									0923
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									<HStack>
+										<Avatar size={'xs'} />
+										<Text>Joeninyo Cainday</Text>
+									</HStack>
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									Katambak
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									5 KG
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									14-06-21
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									14-06-21
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									14-06-21
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									14-06-21
+								</Td>
+								<Td fontSize={12} fontWeight={500}>
+									₱1000.00
+								</Td>
+							</Tr>
+						</Tbody>
 					</Table>
 				</TableContainer>
 			</VStack>
