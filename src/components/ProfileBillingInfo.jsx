@@ -12,13 +12,13 @@ function ProfileBillingInfo() {
 			backgroundColor={'#FFF'}
 			borderRadius={15}
 			boxShadow="0px 2px 5.5px rgba(0, 0, 0, 0.02)">
-			<HStack alignItems={'flex-start'} spacing={3}>
+			<HStack alignItems={'flex-start'} spacing={2}>
 				<Text fontSize={18} fontWeight={700} mb={2}>
 					Billing Information
 				</Text>
 				{/* <ButtonIcon Icon={Edit2} color={'#D2BA82'} /> */}
-				<ButtonIcon Icon={Check} color={'green'} />
-				<ButtonIcon Icon={X} color={'red'} />
+				<ButtonIcon Icon={Check} color={'white'} background={'green.400'} />
+				<ButtonIcon Icon={X} color={'white'} background={'red.400'} />
 			</HStack>
 
 			<HStack spacing={5}>
