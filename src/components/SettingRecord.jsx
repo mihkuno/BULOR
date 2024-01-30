@@ -1,9 +1,9 @@
 import { Text, Avatar, VStack, HStack, Flex } from '@chakra-ui/react';
 import { Tr, Td } from '@chakra-ui/react';
-import { Trash, Edit } from 'react-feather';
+import { Trash, Edit, UserX, UserPlus } from 'react-feather';
 import ButtonIcon from '../components/ButtonIcon';
 
-function SettingRecord({ data }) {
+function SettingRecord({ data, onEdit, onDelete }) {
 	return (
 		<Tr>
 			<Td fontSize={12}>
@@ -36,8 +36,22 @@ function SettingRecord({ data }) {
 			</Td>
 			<Td>
 				<HStack>
-					<ButtonIcon Icon={Trash} color={'white'} background={'red.400'} />
-					<ButtonIcon Icon={Edit} color={'white'} background={'gray.500'} />
+					<ButtonIcon
+						Icon={Trash}
+						color={'white'}
+						background={'red.400'}
+						onClick={() => onDelete(data.id)}
+					/>
+					<ButtonIcon
+						Icon={data.assigned_role === 'Admin' ? UserX : UserPlus}
+						color={'white'}
+						background={'gray.500'}
+						onClick={() =>
+							data.assigned_role === 'Admin'
+								? onEdit(data.id, 'Supplier')
+								: onEdit(data.id, 'Admin')
+						}
+					/>
 				</HStack>
 			</Td>
 		</Tr>

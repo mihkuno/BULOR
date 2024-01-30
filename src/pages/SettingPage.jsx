@@ -35,6 +35,18 @@ function SettingPage() {
 		},
 	]);
 
+	const handleAccountEdit = (id, assigned_role) => {
+		setAccounts(prevAccounts =>
+			prevAccounts.map(account => (account.id === id ? { ...account, assigned_role } : account))
+		);
+		// Perform edit logic with the updated state in the API
+	};
+
+	const handleAccountDelete = id => {
+		setAccounts(prevAccounts => prevAccounts.filter(account => account.id !== id));
+		// Perform delete logic in the API
+	};
+
 	return (
 		<AppBody active={'Settings'}>
 			<VStack
@@ -71,7 +83,14 @@ function SettingPage() {
 						<Tbody>
 							{accounts.map(account => {
 								if (account.assigned_role === 'Admin') {
-									return <SettingRecord key={account.id} data={account} />;
+									return (
+										<SettingRecord
+											key={account.id}
+											data={account}
+											onEdit={handleAccountEdit}
+											onDelete={handleAccountDelete}
+										/>
+									);
 								}
 							})}
 						</Tbody>
@@ -113,7 +132,14 @@ function SettingPage() {
 						<Tbody>
 							{accounts.map(account => {
 								if (account.assigned_role === 'Supplier') {
-									return <SettingRecord key={account.id} data={account} />;
+									return (
+										<SettingRecord
+											key={account.id}
+											data={account}
+											onEdit={handleAccountEdit}
+											onDelete={handleAccountDelete}
+										/>
+									);
 								}
 							})}
 						</Tbody>
