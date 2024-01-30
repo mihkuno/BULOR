@@ -1,5 +1,5 @@
 import { Text, Box, HStack, VStack, Avatar } from '@chakra-ui/react';
-import { Trash, Edit } from 'react-feather';
+import { Trash, Edit, Check, X } from 'react-feather';
 import ButtonIcon from './ButtonIcon';
 
 function ProductCard({ name, quantity, price, author, image, onClickEdit, onClickDelete }) {
@@ -17,7 +17,7 @@ function ProductCard({ name, quantity, price, author, image, onClickEdit, onClic
 
 				<HStack justifyContent={'space-between'} w={'100%'} mt={3}>
 					<HStack>
-						<ButtonIcon
+						{/* <ButtonIcon
 							onClick={() => onClickDelete()}
 							Icon={Trash}
 							color={'white'}
@@ -28,7 +28,9 @@ function ProductCard({ name, quantity, price, author, image, onClickEdit, onClic
 							Icon={Edit}
 							color={'white'}
 							background={'gray.500'}
-						/>
+						/> */}
+						<ButtonIcon Icon={Check} color={'white'} background={'green.400'} />
+						<ButtonIcon Icon={X} color={'white'} background={'red.400'} />
 					</HStack>
 					<Avatar size={'xs'} />
 				</HStack>
