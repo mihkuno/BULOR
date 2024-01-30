@@ -1,8 +1,51 @@
+import { useState } from 'react';
 import { Input, Textarea, Image, Text, VStack, HStack } from '@chakra-ui/react';
 import { Check, X, Edit2 } from 'react-feather';
 import ButtonIcon from './ButtonIcon';
 
 function ProfileUserInfo() {
+	const [isEdit, setIsEdit] = useState(false);
+
+	const [name, setName] = useState('Joeninyo Cainday');
+	const [role, setRole] = useState('Developer');
+	const [mobile, setMobile] = useState('998 450 6322');
+	const [location, setLocation] = useState('Philippines');
+	const [about, setAbout] = useState(
+		"Hi, I'm Joeniño D. Cainday, this is a chakra preset components and its pretty neat on my family's inventoring system."
+	);
+
+	const [editState, setEditState] = useState({
+		name,
+		role,
+		mobile,
+		location,
+		about,
+	});
+
+	const handleUpdate = () => {
+		// Perform update logic with the new state
+		setName(editState.name);
+		setRole(editState.role);
+		setMobile(editState.mobile);
+		setLocation(editState.location);
+		setAbout(editState.about);
+
+		setIsEdit(false);
+	};
+
+	const handleCancel = () => {
+		// Reset the edit state to the current values
+		setEditState({
+			name,
+			role,
+			mobile,
+			location,
+			about,
+		});
+
+		setIsEdit(false);
+	};
+
 	return (
 		<VStack
 			alignItems={'flex-start'}
@@ -16,17 +59,51 @@ function ProfileUserInfo() {
 				<Text fontSize={18} fontWeight={700} mb={2}>
 					Profile Information
 				</Text>
-				{/* <ButtonIcon Icon={Edit2} color={'#D2BA82'} /> */}
-				<ButtonIcon Icon={Check} color={'white'} background={'green.400'} />
-				<ButtonIcon Icon={X} color={'white'} background={'red.400'} />
+
+				{isEdit ? (
+					<>
+						<ButtonIcon
+							Icon={Check}
+							color={'white'}
+							background={'green.400'}
+							onClick={handleUpdate}
+						/>
+						<ButtonIcon
+							Icon={X}
+							color={'white'}
+							background={'red.400'}
+							onClick={handleCancel}
+						/>
+					</>
+				) : (
+					<ButtonIcon
+						Icon={Edit2}
+						color={'#D2BA82'}
+						onClick={() => {
+							setEditState({
+								name,
+								role,
+								mobile,
+								location,
+								about,
+							});
+							setIsEdit(true);
+						}}
+					/>
+				)}
 			</HStack>
 
-			{/* <Text fontSize={13} color={'#A0AEC0'}>
-				Hi, I’m Joeniño D. Cainday, this is a chakra preset components and its pretty neat on my
-				family’s inventoring system.
-			</Text> */}
-
-			<Textarea fontSize={13} />
+			{isEdit ? (
+				<Textarea
+					fontSize={13}
+					placeholder={about}
+					onChange={e => setEditState({ ...editState, about: e.target.value })}
+				/>
+			) : (
+				<Text fontSize={13} color={'#A0AEC0'}>
+					{editState.about}
+				</Text>
+			)}
 
 			<Image src="src/assets/profile_divider.svg" my={2} />
 
@@ -47,23 +124,45 @@ function ProfileUserInfo() {
 				</VStack>
 
 				<VStack alignItems={'flex-start'} spacing={5}>
-					{/* <Text color={'gray.500'} fontSize={13}>
-						Joeninyo Cainday
-					</Text>
-					<Text color={'gray.500'} fontSize={13}>
-						Developer
-					</Text>
-					<Text color={'gray.500'} fontSize={13}>
-						0998 450 6322
-					</Text>
-					<Text color={'gray.500'} fontSize={13}>
-						Philippines
-					</Text> */}
-
-					<Input size={'xs'} placeholder="Joeninyo Cainday" />
-					<Input size={'xs'} placeholder="Developer" />
-					<Input size={'xs'} placeholder="0998 450 6322" />
-					<Input size={'xs'} placeholder="Philippines" />
+					{isEdit ? (
+						<>
+							<Input
+								size={'xs'}
+								placeholder={name}
+								onChange={e => setEditState({ ...editState, name: e.target.value })}
+							/>
+							<Input
+								size={'xs'}
+								placeholder={role}
+								onChange={e => setEditState({ ...editState, role: e.target.value })}
+							/>
+							<Input
+								size={'xs'}
+								placeholder={mobile}
+								onChange={e => setEditState({ ...editState, mobile: e.target.value })}
+							/>
+							<Input
+								size={'xs'}
+								placeholder={location}
+								onChange={e => setEditState({ ...editState, location: e.target.value })}
+							/>
+						</>
+					) : (
+						<>
+							<Text color={'gray.500'} fontSize={13}>
+								{editState.name}
+							</Text>
+							<Text color={'gray.500'} fontSize={13}>
+								{editState.role}
+							</Text>
+							<Text color={'gray.500'} fontSize={13}>
+								(+63) {editState.mobile}
+							</Text>
+							<Text color={'gray.500'} fontSize={13}>
+								{editState.location}
+							</Text>
+						</>
+					)}
 				</VStack>
 			</HStack>
 		</VStack>
