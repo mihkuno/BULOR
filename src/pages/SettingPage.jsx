@@ -1,10 +1,40 @@
-import { Text, Avatar, VStack, HStack, Box, Flex } from '@chakra-ui/react';
-import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
-import { Trash, Edit } from 'react-feather';
-import ButtonIcon from '../components/ButtonIcon';
+import { useState } from 'react';
+import { Text, Avatar, VStack } from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th, TableContainer } from '@chakra-ui/react';
 import AppBody from '../components/AppBody';
+import SettingRecord from '../components/SettingRecord';
 
 function SettingPage() {
+	const [accounts, setAccounts] = useState([
+		{
+			id: 1,
+			name: 'John Doe',
+			email: 'caindayjoeon@gmail.com',
+			role: 'somethign',
+			assigned_role: 'Admin',
+			status: 'Offline',
+			joined: 'Dec 10, 2020',
+		},
+		{
+			id: 2,
+			name: 'Jane Doe',
+			email: 'caindayjoeon@gmail.com',
+			role: 'developer',
+			assigned_role: 'Admin',
+			status: 'Offline',
+			joined: 'Dec 10, 2020',
+		},
+		{
+			id: 3,
+			name: 'Noobx',
+			email: 'caindayjoeon@gmail.com',
+			role: 'sensei',
+			assigned_role: 'Supplier',
+			status: 'Offline',
+			joined: 'Dec 10, 2020',
+		},
+	]);
+
 	return (
 		<AppBody active={'Settings'}>
 			<VStack
@@ -35,50 +65,20 @@ function SettingPage() {
 								<Th color={'#A0AEC0'} fontSize={10}>
 									JOINED
 								</Th>
-								<Th /> {/* Delete and Edit Button */}
+								<Th />
 							</Tr>
 						</Thead>
 						<Tbody>
-							<Tr>
-								<Td fontSize={12}>
-									<HStack spacing={3}>
-										<Avatar size={'sm'} />
-										<VStack alignItems={'flex-start'} spacing={-1}>
-											<Text fontWeight={'bold'}>Joeninyo Cainday</Text>
-											<Text>caindayjoeninyo@gmail.com</Text>
-										</VStack>
-									</HStack>
-								</Td>
-								<Td fontSize={12} fontWeight={500}>
-									<VStack alignItems={'flex-start'} spacing={-1}>
-										<Text fontWeight={'bold'}>Programmer</Text>
-										<Text>Developer</Text>
-									</VStack>
-								</Td>
-								<Td fontSize={12} fontWeight={500}>
-									<Flex
-										p={1.5}
-										color={'white'}
-										borderRadius={8}
-										backgroundColor={'green.400'}
-										justifyContent={'center'}>
-										Online
-									</Flex>
-								</Td>
-								<Td fontSize={12} fontWeight={500}>
-									14-06-21
-								</Td>
-								<Td>
-									<HStack>
-										<ButtonIcon Icon={Trash} color={'white'} background={'red.400'} />
-										<ButtonIcon Icon={Edit} color={'white'} background={'gray.500'} />
-									</HStack>
-								</Td>
-							</Tr>
+							{accounts.map(account => {
+								if (account.assigned_role === 'Admin') {
+									return <SettingRecord key={account.id} data={account} />;
+								}
+							})}
 						</Tbody>
 					</Table>
 				</TableContainer>
 			</VStack>
+
 			<VStack
 				mt={5}
 				ml={5}
@@ -89,39 +89,34 @@ function SettingPage() {
 				spacing={5}
 				borderRadius={12}>
 				<Text fontSize={18} fontWeight={'bold'}>
-					Users
+					Suppliers
 				</Text>
 				<TableContainer w={'100%'}>
 					<Table variant="simple" size={'md'}>
 						<Thead>
 							<Tr>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									ORDER ID
-								</Th>
-								<Th color={'#A0AEC0'} fontSize={10}>
 									AUTHOR
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									PRODUCT
+									FUNCTION
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									QUANTITY
+									STATUS
 								</Th>
 								<Th color={'#A0AEC0'} fontSize={10}>
-									ARRIVAL DATE
+									JOINED
 								</Th>
-								<Th color={'#A0AEC0'} fontSize={10}>
-									DUE DATE
-								</Th>
-								<Th color={'#A0AEC0'} fontSize={10}>
-									PAID ON
-								</Th>
-								<Th color={'#A0AEC0'} fontSize={10}>
-									AMOUNT DUE
-								</Th>
+								<Th />
 							</Tr>
 						</Thead>
-						<Tbody></Tbody>
+						<Tbody>
+							{accounts.map(account => {
+								if (account.assigned_role === 'Supplier') {
+									return <SettingRecord key={account.id} data={account} />;
+								}
+							})}
+						</Tbody>
 					</Table>
 				</TableContainer>
 			</VStack>
