@@ -7,8 +7,8 @@ function WalletCard({ Icon, title, subtitle, amount }) {
 	return (
 		<VStack
 			justifyContent={'center'}
-			w={200}
-			h={240}
+			w={240}
+			h={260}
 			spacing={1}
 			backgroundColor={'#fff'}
 			borderRadius={15}
@@ -23,7 +23,7 @@ function WalletCard({ Icon, title, subtitle, amount }) {
 				{subtitle}
 			</Text>
 			<Image src="../src/assets/dashboard_card_divider.svg" zIndex={1} mt={3} mb={3} />
-			<Text fontWeight={'bold'} fontSize={15} color={'#2D3748'}>
+			<Text fontWeight={'bold'} fontSize={14} color={'#2D3748'}>
 				₱{amount}
 			</Text>
 		</VStack>
@@ -42,7 +42,7 @@ function DashboardPage() {
 				/>
 				<WalletCard
 					title={'Total Due'}
-					subtitle={'Dec 12, 2025'}
+					subtitle={'Dec 12 - Dec 27'}
 					amount={'10,000.00'}
 					Icon={Wallet}
 				/>
