@@ -4,6 +4,10 @@ import { Table, Thead, Tbody, Tr, Th, TableContainer } from '@chakra-ui/react';
 import AppBody from '../components/AppBody';
 import SettingRecord from '../components/SettingRecord';
 
+import { AccountContext } from '../components/AccountProvider';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext } from 'react';
+
 function SettingPage() {
 	const [accounts, setAccounts] = useState([
 		{
@@ -46,6 +50,18 @@ function SettingPage() {
 		setAccounts(prevAccounts => prevAccounts.filter(account => account.id !== id));
 		// Perform delete logic in the API
 	};
+
+	const { UserAccount, Loading } = useContext(AccountContext);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!Loading && !UserAccount) navigate('/');
+	}, [UserAccount, Loading]);
+
+	if (!UserAccount || Loading) {
+		// You can render a loading spinner or some indication while waiting for the data
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<AppBody active={'Settings'}>

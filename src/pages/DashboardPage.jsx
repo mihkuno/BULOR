@@ -3,6 +3,11 @@ import { Box } from '@chakra-ui/react';
 import { Wallet } from 'react-ionicons';
 import AppBody from '../components/AppBody';
 
+import { AccountContext } from '../components/AccountProvider';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext } from 'react';
+import { User } from 'react-feather';
+
 function WalletCard({ Icon, title, subtitle, amount }) {
 	return (
 		<VStack
@@ -31,6 +36,18 @@ function WalletCard({ Icon, title, subtitle, amount }) {
 }
 
 function DashboardPage() {
+	const { UserAccount, Loading } = useContext(AccountContext);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!Loading && !UserAccount) navigate('/');
+	}, [UserAccount, Loading]);
+
+	if (!UserAccount || Loading) {
+		// You can render a loading spinner or some indication while waiting for the data
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<AppBody active={'Dashboard'}>
 			<HStack spacing={4} ml={5} mt={12}>

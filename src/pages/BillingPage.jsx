@@ -2,7 +2,23 @@ import { Text, Avatar, VStack, HStack } from '@chakra-ui/react';
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
 import AppBody from '../components/AppBody';
 
+import { AccountContext } from '../components/AccountProvider';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useContext } from 'react';
+
 function BillingPage() {
+	const { UserAccount, Loading } = useContext(AccountContext);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!Loading && !UserAccount) navigate('/');
+	}, [UserAccount, Loading]);
+
+	if (!UserAccount || Loading) {
+		// You can render a loading spinner or some indication while waiting for the data
+		return <div>Loading...</div>;
+	}
+
 	return (
 		<AppBody active={'Billings'}>
 			<VStack

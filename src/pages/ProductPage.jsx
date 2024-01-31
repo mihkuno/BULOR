@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Wrap, Box } from '@chakra-ui/react';
 import AppBody from '../components/AppBody';
 import ProductCard from '../components/ProductCard';
 import ProductAddCard from '../components/ProductAddCard';
+
+import { useNavigate } from 'react-router-dom';
+import { AccountContext } from '../components/AccountProvider';
 
 function ProductPage() {
 	const [productData, setProductData] = useState([
@@ -42,7 +45,6 @@ function ProductPage() {
 	};
 
 	const handleDeleteProduct = id => {
-		console.log('Delete Product');
 		productData.map(product => {
 			if (product.id === id) {
 				setProductData(productData.filter(product => product.id !== id));
@@ -63,6 +65,18 @@ function ProductPage() {
 
 		// edit the product id in api sql
 	};
+
+	const { UserAccount, Loading } = useContext(AccountContext);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!Loading && !UserAccount) navigate('/');
+	}, [UserAccount, Loading]);
+
+	if (!UserAccount || Loading) {
+		// You can render a loading spinner or some indication while waiting for the data
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<AppBody active={'Products'}>

@@ -1,13 +1,20 @@
+import { useContext } from 'react';
 import { VStack, HStack, Text, Box, Image } from '@chakra-ui/react';
 import { Home, StatsChart, Card, Person, Build, LogOut } from 'react-ionicons';
 import SidebarButton from './SidebarButton';
 import { useNavigate } from 'react-router-dom';
+import { AccountContext } from './AccountProvider';
 
 function Sidebar({ active }) {
 	const navigate = useNavigate();
+	const { Google, setUserAccount } = useContext(AccountContext);
 
 	function handleClick(title) {
-		navigate('/' + title.toLowerCase());
+		if (title == 'Log Out') {
+			Google.logout();
+			setUserAccount(null);
+			navigate('/');
+		} else navigate('/' + title.toLowerCase());
 	}
 
 	return (

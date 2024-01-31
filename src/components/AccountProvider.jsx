@@ -10,7 +10,7 @@ import { GooglePopup } from './GooglePopup';
 import axios from 'axios';
 
 // google console user_account client id
-const CLIENT_ID = '89255587017-7rk09mkvbs1630in8u0n8jlsip4q5l6k.apps.googleusercontent.com';
+const CLIENT_ID = '974635431441-cd85begc9v1f1udu3gkn8dkbhqice87v.apps.googleusercontent.com';
 
 // context allows for the state to be accessed anywhere in the application
 const AccountContext = createContext();
@@ -19,49 +19,27 @@ const AccountContext = createContext();
 const AccountProvider = ({ children }) => {
 	// set the state of the account being used in the application
 	const [UserAccount, setUserAccount] = useState(null);
+	const [Loading, setLoading] = useState(true);
 
-	function initUserToken() {
-		// set token if its already in local storage
-		const token = localStorage.getItem('token');
+	const fetchData = async () => {
+		try {
+			const token = localStorage.getItem('token');
 
-		// check if account has "student" data
-		// if not, redirect to setup page
-		axios
-			.get(
-				'http://localhost:5000/api/student/get_self_data',
-				// set the token in the header for axios requests
-				{
+			if (token) {
+				const response = await axios.get('http://localhost:5000/api/get_profile', {
 					headers: {
-						Authentication: `Bearer ${token}`,
+						authorization: `Bearer ${token}`,
 					},
-				}
-			)
-			.then(res => {
-				setUserAccount(res.data.account);
-			})
-			.catch(err => {
-				// if token is valid but account has no user data
-				if (err.response.data.authenticated == true) {
-					// set the user account and token
-					// redirect to setup page
-					setUserAccount(err.response.data.account);
-				}
-				// if token is invalid or expired, then prompt login
-				else if (localStorage.getItem('token')) {
-					setUserAccount(null);
-					// auto login google prompt
-					window.google.accounts.id.prompt();
-					// proceed to login handler callback
-					// see initLoginHandler()
-					// this will run initUserToken() again
-				}
-				// if token is not in local storage
-				else {
-					// redirect to login page
-					setUserAccount(null);
-				}
-			});
-	}
+				});
+
+				setUserAccount(response.data.get_profile);
+			}
+		} catch (error) {
+			console.error('Error:', error.response ? error.response.data : error.message);
+		} finally {
+			setLoading(false); // This will be executed whether there's an error or not
+		}
+	};
 
 	function initLoginHandler() {
 		// load and initialize the user_account from the Google Cloud Console
@@ -71,16 +49,17 @@ const AccountProvider = ({ children }) => {
 
 			// login handler callback
 			callback: res => {
+				// res.credential is the token
 				// set the token in local storage
 				localStorage.setItem('token', res.credential);
-				initUserToken();
+				fetchData();
 			},
 		});
 	}
 
 	useEffect(() => {
 		initLoginHandler();
-		initUserToken();
+		fetchData();
 	}, []);
 
 	const Google = {
@@ -93,7 +72,7 @@ const AccountProvider = ({ children }) => {
 	};
 
 	return (
-		<AccountContext.Provider value={{ UserAccount, Google, initUserToken }}>
+		<AccountContext.Provider value={{ UserAccount, setUserAccount, Google, fetchData, Loading }}>
 			{children}
 		</AccountContext.Provider>
 	);

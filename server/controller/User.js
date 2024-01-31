@@ -23,7 +23,7 @@ const get_profile = async (req, res) => {
 		connection.release();
 
 		// Send the data as JSON response
-		res.json({ success: true, data: rows });
+		res.json({ success: true, get_profile: rows[0] });
 		return;
 	} catch (error) {
 		console.error('Error executing MySQL query:', error);

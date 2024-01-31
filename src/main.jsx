@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
+import { AccountProvider } from './components/AccountProvider';
 import { ChakraProvider } from '@chakra-ui/react';
-// import { AccountProvider } from './components/AccountProvider';
 
 import './styles/global.css';
 import Router from './Router';
@@ -10,9 +10,9 @@ import Router from './Router';
 function Root() {
 	return (
 		<ChakraProvider>
-			{/* <AccountProvider> */}
-			<Router />
-			{/* </AccountProvider> */}
+			<AccountProvider>
+				<Router />
+			</AccountProvider>
 		</ChakraProvider>
 	);
 }

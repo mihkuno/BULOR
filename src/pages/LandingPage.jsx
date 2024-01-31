@@ -1,11 +1,21 @@
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Image, Text, VStack, HStack, Button, Center } from '@chakra-ui/react';
 import { AccountContext } from '../components/AccountProvider';
-
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 
 function LandingPage() {
-	// const { Google } = useContext(AccountContext);
+	const { UserAccount, Loading, Google } = useContext(AccountContext);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (UserAccount) navigate('/profile');
+	}, [UserAccount]);
+
+	if ((!UserAccount && Loading) || UserAccount) {
+		// You can render a loading spinner or some indication while waiting for the data
+		return <div>Loading...</div>;
+	}
 
 	return (
 		<>
@@ -31,7 +41,7 @@ function LandingPage() {
 						</Text>
 
 						{/* login button */}
-						<Button colorScheme="blue" fontSize={14} mt={5}>
+						<Button colorScheme="blue" fontSize={14} mt={5} onClick={Google.login}>
 							Sign in with Google
 						</Button>
 					</VStack>
