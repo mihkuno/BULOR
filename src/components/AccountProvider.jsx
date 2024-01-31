@@ -32,6 +32,7 @@ const AccountProvider = ({ children }) => {
 					},
 				});
 
+				console.log(token);
 				setUserAccount(response.data.get_profile);
 			}
 		} catch (error) {
@@ -69,10 +70,11 @@ const AccountProvider = ({ children }) => {
 			localStorage.clear();
 			setUserAccount(null);
 		},
+		getToken: () => localStorage.getItem('token'),
 	};
 
 	return (
-		<AccountContext.Provider value={{ UserAccount, setUserAccount, Google, fetchData, Loading }}>
+		<AccountContext.Provider value={{ UserAccount, setUserAccount, Google, Loading }}>
 			{children}
 		</AccountContext.Provider>
 	);
