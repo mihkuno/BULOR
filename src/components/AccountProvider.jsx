@@ -26,14 +26,14 @@ const AccountProvider = ({ children }) => {
 			const token = localStorage.getItem('token');
 
 			if (token) {
-				const response = await axios.get('http://localhost:5000/api/get_profile', {
+				const response = await axios.get('http://localhost:5000/api/get_profile_info', {
 					headers: {
 						authorization: `Bearer ${token}`,
 					},
 				});
 
 				console.log(token);
-				setUserAccount(response.data.get_profile);
+				setUserAccount(response.data.get_profile_info);
 			}
 		} catch (error) {
 			console.error('Error:', error.response ? error.response.data : error.message);

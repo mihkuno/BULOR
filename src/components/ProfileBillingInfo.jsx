@@ -1,25 +1,69 @@
-import { useState } from 'react';
-import { Input, Text, VStack, HStack } from '@chakra-ui/react';
+import { useState, useEffect } from 'react';
+import { Input, Text, VStack, HStack, Flex } from '@chakra-ui/react';
 import { Check, X, Edit2 } from 'react-feather';
 import ButtonIcon from './ButtonIcon';
 
+import axios from 'axios';
+import { useContext } from 'react';
+import { AccountContext } from './AccountProvider';
+
 function ProfileBillingInfo() {
 	const [isEdit, setIsEdit] = useState(false);
+	const { Google } = useContext(AccountContext);
 
-	const [bank, setBank] = useState('Metrobank');
-	const [number, setNumber] = useState('7812 2139 0823 XXXX');
+	const [bank, setBank] = useState('');
+	const [number, setNumber] = useState('');
 
 	const [editState, setEditState] = useState({
 		bank,
 		number,
 	});
 
+	useEffect(() => {
+		const token = Google.getToken();
+		axios
+			.get('http://localhost:5000/api/get_profile_bill', {
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			})
+			.then(response => {
+				setBank(response.data.get_profile_bill.name);
+				setNumber(response.data.get_profile_bill.number);
+			})
+			.catch(error => {
+				console.error('Error:', error.response ? error.response.data : error.message);
+			});
+	}, []);
+
 	const handleUpdate = () => {
+		const token = Google.getToken();
+		axios
+			.put(
+				'http://localhost:5000/api/put_profile_bill',
+				{
+					name: editState.bank,
+					number: editState.number,
+				},
+				{
+					headers: {
+						authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then(response => {
+				console.log('Profile billing updated successfully:', response.data);
+			})
+			.catch(error => {
+				console.error('Error:', error.response ? error.response.data : error.message);
+			})
+			.finally(() => {
+				setIsEdit(false);
+			});
+
 		// Perform update logic with the new state
 		setBank(editState.bank);
 		setNumber(editState.number);
-
-		setIsEdit(false);
 	};
 
 	const handleCancel = () => {
@@ -71,8 +115,8 @@ function ProfileBillingInfo() {
 				)}
 			</HStack>
 
-			<HStack spacing={5}>
-				<VStack alignItems={'flex-start'} spacing={5}>
+			<Flex alignItems="center">
+				<VStack alignItems="flex-start" spacing={5}>
 					<Text color={'gray.500'} fontSize={13} fontWeight={700}>
 						Bank:
 					</Text>
@@ -81,32 +125,32 @@ function ProfileBillingInfo() {
 					</Text>
 				</VStack>
 
-				<VStack alignItems={'flex-start'} spacing={5}>
+				<VStack spacing={5} h={61} pl={5}>
 					{isEdit ? (
 						<>
 							<Input
 								size={'xs'}
-								placeholder={bank}
+								value={editState.bank}
 								onChange={e => setEditState({ ...editState, bank: e.target.value })}
 							/>
 							<Input
 								size={'xs'}
-								placeholder={number}
+								value={editState.number}
 								onChange={e => setEditState({ ...editState, number: e.target.value })}
 							/>
 						</>
 					) : (
 						<>
 							<Text color={'gray.500'} fontSize={13}>
-								{bank}
+								{bank && `    ${bank}`}
 							</Text>
 							<Text color={'gray.500'} fontSize={13}>
-								{number}
+								{number && `    ${number}`}
 							</Text>
 						</>
 					)}
 				</VStack>
-			</HStack>
+			</Flex>
 		</VStack>
 	);
 }

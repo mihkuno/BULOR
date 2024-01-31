@@ -28,7 +28,7 @@ function ProfileUserInfo() {
 		const token = Google.getToken();
 		axios
 			.put(
-				'http://localhost:5000/api/put_profile',
+				'http://localhost:5000/api/put_profile_info',
 				{
 					user_name: editState.name,
 					self_role: editState.role,
@@ -43,7 +43,7 @@ function ProfileUserInfo() {
 				}
 			)
 			.then(response => {
-				console.log('Profile updated successfully:', response.data);
+				console.log('Profile information updated successfully:', response.data);
 			})
 			.catch(error => {
 				console.error('Error:', error.response ? error.response.data : error.message);
