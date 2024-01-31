@@ -1,6 +1,10 @@
 import { Box, Image, Text, Flex, VStack, HStack } from '@chakra-ui/react';
+import { useContext } from 'react';
+import { AccountContext } from './AccountProvider';
 
 function ProfileHeader() {
+	const { UserAccount } = useContext(AccountContext);
+
 	return (
 		<Flex w={'97%'} direction={'column'} mt={-20} alignItems={'center'}>
 			<Box
@@ -31,11 +35,15 @@ function ProfileHeader() {
 					/>
 
 					<VStack alignItems={'flex-start'} spacing={-2}>
-						<Text fontSize={17} fontWeight={'bold'} color={'#2D3748'}>
-							Joeninyo Cainday
+						<Text
+							fontSize={17}
+							fontWeight={'bold'}
+							color={'#2D3748'}
+							textTransform={'capitalize'}>
+							{UserAccount.email_name}
 						</Text>
 						<Text fontSize={14} color={'#718096'}>
-							caindayjoeninyo@gmail.com
+							{UserAccount.email_address}
 						</Text>
 					</VStack>
 				</HStack>

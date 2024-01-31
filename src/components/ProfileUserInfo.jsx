@@ -1,18 +1,20 @@
-import { useState } from 'react';
 import { Input, Textarea, Image, Text, VStack, HStack } from '@chakra-ui/react';
 import { Check, X, Edit2 } from 'react-feather';
 import ButtonIcon from './ButtonIcon';
 
+import axios from 'axios';
+import { useState, useContext } from 'react';
+import { AccountContext } from './AccountProvider';
+
 function ProfileUserInfo() {
 	const [isEdit, setIsEdit] = useState(false);
+	const { UserAccount, Google } = useContext(AccountContext);
 
-	const [name, setName] = useState('Joeninyo Cainday');
-	const [role, setRole] = useState('Developer');
-	const [mobile, setMobile] = useState('998 450 6322');
-	const [location, setLocation] = useState('Philippines');
-	const [about, setAbout] = useState(
-		"Hi, I'm Joeniño D. Cainday, this is a chakra preset components and its pretty neat on my family's inventoring system."
-	);
+	const [name, setName] = useState(UserAccount.user_name);
+	const [role, setRole] = useState(UserAccount.self_role);
+	const [mobile, setMobile] = useState(UserAccount.phone_number);
+	const [location, setLocation] = useState(UserAccount.location);
+	const [about, setAbout] = useState(UserAccount.self_info);
 
 	const [editState, setEditState] = useState({
 		name,
@@ -23,14 +25,39 @@ function ProfileUserInfo() {
 	});
 
 	const handleUpdate = () => {
+		const token = Google.getToken();
+		axios
+			.put(
+				'http://localhost:5000/api/put_profile',
+				{
+					user_name: editState.name,
+					self_role: editState.role,
+					phone_number: editState.mobile,
+					location: editState.location,
+					self_info: editState.about,
+				},
+				{
+					headers: {
+						authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then(response => {
+				console.log('Profile updated successfully:', response.data);
+			})
+			.catch(error => {
+				console.error('Error:', error.response ? error.response.data : error.message);
+			})
+			.finally(() => {
+				setIsEdit(false);
+			});
+
 		// Perform update logic with the new state
 		setName(editState.name);
 		setRole(editState.role);
 		setMobile(editState.mobile);
 		setLocation(editState.location);
 		setAbout(editState.about);
-
-		setIsEdit(false);
 	};
 
 	const handleCancel = () => {

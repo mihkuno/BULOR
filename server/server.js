@@ -32,12 +32,17 @@ const pool = mysql.createPool({
 	database: 'db_lorad',
 });
 
-User.init(pool);
+User.initialize(pool);
 
 // ==================================================
 
 // express app
 const app = express();
+
+/**
+ * Add this line to enable JSON parsing
+ */
+app.use(express.json());
 
 /**
  * This is a proxy option for the dev server.
@@ -54,6 +59,7 @@ app.use(Token.verify);
 // ==================================================
 
 app.get('/api/get_profile', User.get_profile);
+app.put('/api/put_profile', User.put_profile);
 
 // ==================================================
 
