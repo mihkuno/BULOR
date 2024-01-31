@@ -56,9 +56,10 @@ function SettingPage() {
 
 	useEffect(() => {
 		if (!Loading && !UserAccount) navigate('/');
+		else if (UserAccount && UserAccount.assigned_role !== 'Admin') navigate('/');
 	}, [UserAccount, Loading]);
 
-	if (!UserAccount || Loading) {
+	if (!UserAccount || Loading || (UserAccount && UserAccount.assigned_role !== 'Admin')) {
 		// You can render a loading spinner or some indication while waiting for the data
 		return <div>Loading...</div>;
 	}

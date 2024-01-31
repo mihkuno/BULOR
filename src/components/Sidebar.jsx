@@ -7,7 +7,7 @@ import { AccountContext } from './AccountProvider';
 
 function Sidebar({ active }) {
 	const navigate = useNavigate();
-	const { Google, setUserAccount } = useContext(AccountContext);
+	const { Google, setUserAccount, UserAccount } = useContext(AccountContext);
 
 	function handleClick(title) {
 		if (title == 'Log Out') {
@@ -47,6 +47,7 @@ function Sidebar({ active }) {
 					active={active == 'Billings'}
 					onClick={handleClick}
 				/>
+
 				<Text mt={2} mb={1} ml={5} fontSize={12} fontWeight={700}>
 					ACCOUNT PAGES
 				</Text>
@@ -56,12 +57,15 @@ function Sidebar({ active }) {
 					active={active == 'Profile'}
 					onClick={handleClick}
 				/>
-				<SidebarButton
-					title={'Settings'}
-					Icon={Build}
-					active={active == 'Settings'}
-					onClick={handleClick}
-				/>
+				{UserAccount.assigned_role == 'Admin' && (
+					<SidebarButton
+						title={'Settings'}
+						Icon={Build}
+						active={active == 'Settings'}
+						onClick={handleClick}
+					/>
+				)}
+
 				<SidebarButton title={'Log Out'} Icon={LogOut} onClick={handleClick} />
 			</VStack>
 		</Box>
